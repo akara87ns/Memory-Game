@@ -10,5 +10,5 @@ Up-to-date modern browser.
 
 ## Credits
 
-All images were downloaded from https://www.pexels.com/ and they free for personal and commercial use,
+All images were downloaded from https://www.pexels.com/ and are they free for personal and commercial use,
 with no attribution required. 
