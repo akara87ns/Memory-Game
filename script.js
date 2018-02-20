@@ -62,10 +62,12 @@ document.getElementById("content").addEventListener("click", function(e) {
     console.log(classArray);
 
     if (dataIdArray.length === 2) {
+        document.getElementById("content").style.pointerEvents = "none";
         if (dataIdArray[0] === dataIdArray[1]) {
             console.log("You guessed it!");
             dataIdArray = [];
             classArray = [];
+            setTimeout(clickDelay, 1200);
         } else if (dataIdArray[0] !== dataIdArray[1]) {
             console.log("Wrong. Try again.");
             dataIdArray = [];
@@ -73,11 +75,16 @@ document.getElementById("content").addEventListener("click", function(e) {
             //     classArray[i].classList.remove("flipCard");
             // }
             // setInterval(removingClasses, 1000);
-            for (var i = 0; i < classArray.length; i++) {
-                classArray[i].classList.remove("flipCard");
-            }
+            // for (var i = 0; i < classArray.length; i++) {
+            //     classArray[i].classList.remove("flipCard");
+            // }
             
-            classArray = [];
+            setTimeout(turnUnmatchedCards, 1000);
+
+            setTimeout(clickDelay, 1200);
+            // document.getElementById("content").style.pointerEvents = "auto";
+            
+            // classArray = [];
 
             // function delayCardFlip() {
             //     setInterval(function() {
@@ -86,20 +93,35 @@ document.getElementById("content").addEventListener("click", function(e) {
             //         }
             //         delayCardFlip();
             //     }, 1000);
-            // }
-            
-            
-            
-            
-        }
+            // }  
+        } 
     }
-    // console.log(classArray);
 
-    function removingClasses() {
+    function clickDelay() {
+        document.getElementById("content").style.pointerEvents = "auto";
+    }
+
+    function turnUnmatchedCards() {
         for (var i = 0; i < classArray.length; i++) {
             classArray[i].classList.remove("flipCard");
         }
+        classArray = [];
     }
+
+    // if (dataIdArray.length > 2) {
+    //     document.getElementById("content").style.pointerEvents = "none";
+    // } else {
+    //     document.getElementById("content").style.pointerEvents = "auto";
+    // }
+
+
+    // console.log(classArray);
+
+    // function removingClasses() {
+    //     for (var i = 0; i < classArray.length; i++) {
+    //         classArray[i].classList.remove("flipCard");
+    //     }
+    // }
     // dataIdArray.push(parentDiv.dataset.id);
 
     // if (typeof dataIdArray[1] === "undefined") {

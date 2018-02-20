@@ -9,7 +9,10 @@ body {
   width: 45vw;
   margin: 0 auto; }
   #content .card {
-    position: relative; }
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: .5s; }
   #content .back {
     transform: rotateY(-180deg); }
   #content .front {
@@ -18,10 +21,7 @@ body {
     top: 0;
     left: 0; }
   #content img {
-    width: 100%;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: 1s; }
+    width: 100%; }
   #content .flipCard {
     transform: rotateY(-180deg);
     transform-style: preserve-3d;
