@@ -15,7 +15,6 @@ var output = "";
 
 function cardShuffle() {
     shuffleArray(cardsArray);
-
     for (var i = 0; i < cardsArray.length; i++) {
         output += `
             <div class="card" data-id="${cardsArray[i]}">
@@ -43,13 +42,13 @@ document.getElementById("resetCards").addEventListener("click", function() {
     clear(), cardShuffle();
 });
 
-var dataIdArray = [];  //Array for comparing data id's of two clicked cards
-var classArray = [];   //Array for removal of flipCard class on unmatched cards
-var correctGuesses = 0;
+var dataIdArray = [];    //Array for comparing data id's of two clicked cards
+var classArray = [];     //Array for removal of flipCard class on unmatched cards
+var correctGuesses = 0;  //Total number of correct guesses
 
 document.getElementById("content").addEventListener("click", function(e) {
 
-    var parentDiv = e.target.parentElement;
+    var parentDiv = e.target.parentElement; 
 
     parentDiv.classList.add("flipCard");
 
@@ -71,7 +70,7 @@ document.getElementById("content").addEventListener("click", function(e) {
         } else if (dataIdArray[0] !== dataIdArray[1]) {  //Incorrect guess
             dataIdArray = [];
             setTimeout(turnUnmatchedCards, 1000);
-            setTimeout(clickDelay, 1100);
+            setTimeout(clickDelay, 1000);
         } 
     }
 
@@ -90,5 +89,6 @@ document.getElementById("content").addEventListener("click", function(e) {
         setTimeout(function() {
             document.getElementById("message").style.display = "flex";
         }, 1000);
+        correctGuesses = 0;
     }
 });
