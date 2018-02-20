@@ -1,5 +1,4 @@
-// Durstenfeld shuffle algorithm used for shuffling numbers in an array
-// (modernized version of Fisher-Yates shuffle algorithm)
+// Durstenfeld shuffle algorithm used for shuffling numbers in an array (modernized version of Fisher-Yates shuffle algorithm)
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -36,6 +35,7 @@ window.onload = function() {
 function clear() {
     output = "";
     dataIdArray = [];
+    document.getElementById("message").style.display = "none";
 }
 
 //Reset button will shuffle the cards
@@ -43,8 +43,9 @@ document.getElementById("resetCards").addEventListener("click", function() {
     clear(), cardShuffle();
 });
 
-var dataIdArray = [];  //Array for comparing two clicked cards
-var classArray = [];
+var dataIdArray = [];  //Array for comparing data id's of two clicked cards
+var classArray = [];   //Array for removal of flipCard class on unmatched cards
+var correctGuesses = 0;
 
 document.getElementById("content").addEventListener("click", function(e) {
 
@@ -52,48 +53,25 @@ document.getElementById("content").addEventListener("click", function(e) {
 
     parentDiv.classList.add("flipCard");
 
-    //checking if the user has clicked two or more times on the same card
-    //undefined values will not be added to the array
+    //Checking if the user has clicked two or more times on the same card. Undefined values will not be added to the array
     if (parentDiv.dataset.id !== undefined) {  
         dataIdArray.push(parentDiv.dataset.id);
     }
 
     classArray.push(parentDiv);
-    console.log(classArray);
 
     if (dataIdArray.length === 2) {
         document.getElementById("content").style.pointerEvents = "none";
-        if (dataIdArray[0] === dataIdArray[1]) {
-            console.log("You guessed it!");
+        if (dataIdArray[0] === dataIdArray[1]) {         //Correct guess
             dataIdArray = [];
             classArray = [];
-            setTimeout(clickDelay, 1200);
-        } else if (dataIdArray[0] !== dataIdArray[1]) {
-            console.log("Wrong. Try again.");
+            setTimeout(clickDelay, 1000);
+
+            correctGuesses++;
+        } else if (dataIdArray[0] !== dataIdArray[1]) {  //Incorrect guess
             dataIdArray = [];
-            // for (var i = 0; i < classArray.length; i++) {
-            //     classArray[i].classList.remove("flipCard");
-            // }
-            // setInterval(removingClasses, 1000);
-            // for (var i = 0; i < classArray.length; i++) {
-            //     classArray[i].classList.remove("flipCard");
-            // }
-            
             setTimeout(turnUnmatchedCards, 1000);
-
-            setTimeout(clickDelay, 1200);
-            // document.getElementById("content").style.pointerEvents = "auto";
-            
-            // classArray = [];
-
-            // function delayCardFlip() {
-            //     setInterval(function() {
-            //         for (var i = 0; i < classArray.length; i++) {
-            //             classArray[i].classList.remove("flipCard");
-            //         }
-            //         delayCardFlip();
-            //     }, 1000);
-            // }  
+            setTimeout(clickDelay, 1100);
         } 
     }
 
@@ -108,105 +86,9 @@ document.getElementById("content").addEventListener("click", function(e) {
         classArray = [];
     }
 
-    // if (dataIdArray.length > 2) {
-    //     document.getElementById("content").style.pointerEvents = "none";
-    // } else {
-    //     document.getElementById("content").style.pointerEvents = "auto";
-    // }
-
-
-    // console.log(classArray);
-
-    // function removingClasses() {
-    //     for (var i = 0; i < classArray.length; i++) {
-    //         classArray[i].classList.remove("flipCard");
-    //     }
-    // }
-    // dataIdArray.push(parentDiv.dataset.id);
-
-    // if (typeof dataIdArray[1] === "undefined") {
-    //     dataIdArray[1].pop;
-    // }
-
-    
-    // if (clickedCard[0] === clickedCard[1]) {
-    //     console.log("You have clicked on the same card");
-    // }
-
-
-    // if (dataIdArray.length === 2 && dataIdArray[1] === undefined) {
-    //     dataIdArray[1].pop();
-    // }
-
-
-    // for (var i = 0; i < dataIdArray.length; i++) {
-    //     if (dataIdArray[1] === undefined) {
-    //         dataIdArray[1].pop();
-    //     }
-    // }
-    
-
-    // if (parentDiv.classList.contains("flipCard")) {
-    //     this.classList.add("disabledCard");
-    // }
-    // console.log(dataIdArray.length);
-    // console.log(dataIdArray);
-
-
+    if (correctGuesses === 8) {
+        setTimeout(function() {
+            document.getElementById("message").style.display = "flex";
+        }, 1000);
+    }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-var cardArray = [];
-var cardArray2 = [];
-
-document.getElementById("content").addEventListener("click", function(e) {
-    
-    var card = e.target.classList;
-
-    cardArray.push(e.target.dataset.id);  //for comparing cards data-id
-    cardArray2.push(e.target); //for removing classes from unpaired divs
-
-    if (cardArray.length === 2) {
-        if (cardArray[1] === undefined) {
-            cardArray.pop();
-            // cardArray2[0].childNodes.style.pointerEvents = "none";
-            // e.target.style.pointerEvents = "none";
-            // e.target.parentElement.classList.remove("flipCard");
-            console.log("select another card");
-        } else if (cardArray[0] === cardArray[1]) {
-            console.log("You guessed it!");
-            cardArray = [];
-            cardArray2 = [];
-        } else if (cardArray[0] !== cardArray[1]) {
-            console.log("That is not correct. Guess again.");
-            cardArray = [];
-            function turnCards() {
-                cardArray2[0].classList.remove("flipCard");
-                cardArray2[1].classList.remove("flipCard");
-                cardArray2 = [];
-            }
-            setTimeout(turnCards, 1000);
-        }
-    }
-
-    console.log(cardArray);
-
-    
-    if (e.target.parentElement.classList.contains("flipCard")) {
-        e.target.parentElement.classList.remove("flipCard");
-    } else {
-        card.add("flipCard");
-    }
-*/
